@@ -174,11 +174,11 @@ body{
 
   <!-- BUTTON NOW ABOVE TITLE -->
   <a id="waBtnTop" class="whBtn" href="#" target="_blank">
-    WhatsApp Now (Claim Free Credits)
+    Claim Free Credits Now
   </a>
 
   <h1 class="heroTitle">Free Credits</h1>
-  <div class="heroSub">Sign up now — contact WhatsApp support to claim your promotional credits.</div>
+  <div class="heroSub">Sign up now — click the button to claim your credits.</div>
 
   <div class="posterCard">
     <img class="posterImg" src="free-credits-sign-up.jpg" alt="Free Credits Poster">
@@ -187,7 +187,7 @@ body{
 </div>
 
 <script>
-const WA_NUMBER="60123456789";
+const WA_NUMBER="61434844364";
 const msg="Hi Rock9.com, I want to claim the FREE CREDITS.";
 const waLink=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 const waBtn=document.getElementById("waBtnTop");
@@ -196,7 +196,7 @@ waBtn.href=waLink;
 /* Auto Redirect 5s */
 let userClicked=false;
 waBtn.addEventListener("click",()=>{userClicked=true;});
-setTimeout(()=>{ if(!userClicked){ window.location.href=waLink; } },5000);
+setTimeout(()=>{ if(!userClicked){ window.location.href=waLink; } },10000);
 
 /* Coin Rain */
 const rain=document.getElementById("coinRain");
