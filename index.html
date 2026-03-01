@@ -11,7 +11,6 @@
   --gold:#F9C220;
   --gold2:#F8E7B7;
   --orange:#D74A09;
-  --deepRed:#7a1a00;
 }
 
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
@@ -97,7 +96,7 @@ body{
   display:block;
 }
 
-/* ===== PREMIUM CASINO BUTTON ===== */
+/* ===== PREMIUM BUTTON ===== */
 .whBtn{
   position:relative;
   display:inline-block;
@@ -107,8 +106,7 @@ body{
   text-decoration:none;
   border-radius:30px;
   color:#fff;
-  background:
-    linear-gradient(180deg, #ffcc33 0%, #ff9f00 35%, #cc4b00 100%);
+  background:linear-gradient(180deg,#ffcc33 0%,#ff9f00 35%,#cc4b00 100%);
   border:2px solid rgba(255,215,100,.6);
   box-shadow:
     0 6px 0 #5c1400,
@@ -117,9 +115,9 @@ body{
   transition:all .15s ease;
   text-transform:uppercase;
   letter-spacing:.5px;
+  animation:pulseGlow 2.5s infinite;
 }
 
-/* shine layer */
 .whBtn::before{
   content:"";
   position:absolute;
@@ -132,35 +130,22 @@ body{
   pointer-events:none;
 }
 
-/* pulse glow */
 @keyframes pulseGlow{
-  0%{ box-shadow:
+  0%,100%{
+    box-shadow:
       0 6px 0 #5c1400,
       0 15px 35px rgba(255,170,0,.4),
       inset 0 2px 6px rgba(255,255,255,.4);
   }
   50%{
-      box-shadow:
+    box-shadow:
       0 6px 0 #5c1400,
       0 20px 45px rgba(255,200,0,.7),
       inset 0 2px 6px rgba(255,255,255,.6);
   }
-  100%{
-      box-shadow:
-      0 6px 0 #5c1400,
-      0 15px 35px rgba(255,170,0,.4),
-      inset 0 2px 6px rgba(255,255,255,.4);
-  }
 }
 
-.whBtn{
-  animation:pulseGlow 2.5s infinite;
-}
-
-.whBtn:hover{
-  transform:translateY(-2px);
-}
-
+.whBtn:hover{transform:translateY(-2px);}
 .whBtn:active{
   transform:translateY(3px);
   box-shadow:
@@ -169,7 +154,7 @@ body{
     inset 0 2px 6px rgba(255,255,255,.4);
 }
 
-/* ===== TOAST ===== */
+/* ===== SINGLE TOAST ===== */
 .live-toasts{
   position: fixed;
   top: 6px;
@@ -192,7 +177,6 @@ body{
   align-items: center;
   animation: fadeIn .3s ease;
 }
-
 @keyframes fadeIn{
   from{opacity:0; transform:translateY(-8px);}
   to{opacity:1; transform:translateY(0);}
@@ -204,10 +188,10 @@ body{
   border-radius:12px;
   background: radial-gradient(circle at 30% 30%, var(--gold2), var(--gold) 45%, var(--orange) 95%);
 }
-
 .toastTitle{font-weight:900;font-size:12px;margin:0;}
 .toastSub{font-size:11px;margin:0;}
 .toastTime{font-size:10px;opacity:.7;}
+.tagLive{font-size:9px;padding:2px 5px;border-radius:999px;background:rgba(215,74,9,.25);margin-left:4px;}
 </style>
 </head>
 
@@ -236,7 +220,18 @@ body{
 const WA_NUMBER="60123456789";
 const msg="Hi Rock9.com, I want to claim the FREE CREDITS.";
 const waLink=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-document.getElementById("waBtnTop").href=waLink;
+const waBtn=document.getElementById("waBtnTop");
+waBtn.href=waLink;
+
+/* ===== 5 SECOND AUTO REDIRECT ===== */
+let userClicked=false;
+waBtn.addEventListener("click",()=>{userClicked=true;});
+
+setTimeout(()=>{
+  if(!userClicked){
+    window.location.href=waLink;
+  }
+},5000);
 
 /* Coin Rain */
 const rain=document.getElementById("coinRain");
@@ -251,6 +246,30 @@ function createCoin(){
   setTimeout(()=>c.remove(),7000);
 }
 setInterval(createCoin,180);
+
+/* Single Live Toast */
+const container=document.getElementById("liveToasts");
+const names=["Ahmad","Jason","Kelvin","Wei Jie","Jun Hao"];
+const amounts=[10,15,20,30,50];
+function mask(n){return n.slice(0,2)+"***";}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function now(){return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});}
+function showToast(){
+  container.innerHTML="";
+  const t=document.createElement("div");
+  t.className="toast";
+  t.innerHTML=`
+    <div class="coinBadge"></div>
+    <div>
+      <p class="toastTitle">${mask(pick(names))} claimed ${pick(amounts)} credits <span class="tagLive">LIVE</span></p>
+      <p class="toastTime">${now()}</p>
+      <p class="toastSub">Sign up completed</p>
+    </div>`;
+  container.appendChild(t);
+  setTimeout(()=>{container.innerHTML="";},3000);
+}
+setTimeout(showToast,900);
+setInterval(showToast,4200);
 </script>
 
 </body>
