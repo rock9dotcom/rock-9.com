@@ -52,24 +52,22 @@ body{
 .wrap{
   max-width:980px;
   margin:auto;
-  padding:20px 16px 40px; /* reduced top padding */
+  padding:20px 16px 40px;
   position:relative;
   z-index:2;
   text-align:center;
 }
 
-/* LOGO */
 .brandLogo{
   width:min(520px, 92vw);
   height:auto;
   display:block;
-  margin:0 auto 4px; /* reduced gap */
+  margin:0 auto 4px;
   filter: drop-shadow(0 18px 35px rgba(0,0,0,.55));
 }
 
-/* TITLE */
 .heroTitle{
-  margin:0; /* remove default margin */
+  margin:0;
   font-weight:1000;
   letter-spacing:.4px;
   font-size:26px;
@@ -80,7 +78,7 @@ body{
 }
 
 .heroSub{
-  margin:6px 0 14px; /* tighter spacing */
+  margin:6px 0 14px;
   color:rgba(248,231,183,.85);
   font-size:14px;
 }
@@ -152,12 +150,57 @@ body{
   margin-top:10px;
   opacity:.75;
 }
+
+/* ===== SINGLE TOAST (TOP CENTER) ===== */
+.live-toasts{
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.toast{
+  width: min(440px, calc(100vw - 24px));
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(248,231,183,.22);
+  background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.25));
+  box-shadow: 0 18px 45px rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 10px;
+  align-items: center;
+  animation: fadeIn .3s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.coinBadge{
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, var(--gold2), var(--gold) 45%, var(--orange) 95%);
+}
+.toastTitleRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.toastTitle{font-weight:1000;font-size:13px;margin:0;}
+.toastTime{font-size:11px;opacity:.7;}
+.toastSub{margin:2px 0 0;font-size:12px;opacity:.82;}
+.tagLive{font-size:10px;padding:2px 6px;border-radius:999px;background:rgba(215,74,9,.25);margin-left:6px;}
 </style>
 </head>
 
 <body>
 
 <div class="coin-rain" id="coinRain"></div>
+<div class="live-toasts" id="liveToasts"></div>
 
 <div class="wrap">
 
@@ -189,8 +232,16 @@ body{
 <script>
 const WA_NUMBER="60123456789";
 const msg="Hi Rock9.com, I want to claim the FREE CREDITS.";
-document.getElementById("waBtnTop").href=
-`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+const waLink=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+const waBtn=document.getElementById("waBtnTop");
+waBtn.href=waLink;
+
+let userClicked=false;
+waBtn.addEventListener("click",()=>{userClicked=true;});
+
+setTimeout(()=>{
+  if(!userClicked){ window.location.href=waLink; }
+},5000);
 
 /* Coin Rain */
 const rain=document.getElementById("coinRain");
@@ -205,6 +256,34 @@ function createCoin(){
   setTimeout(()=>c.remove(),7000);
 }
 setInterval(createCoin,180);
+
+/* Single Live Toast */
+const container=document.getElementById("liveToasts");
+const names=["Ahmad","Jason","Kelvin","Wei Jie","Jun Hao","Siti","Alya","Daniel"];
+const amounts=[10,15,20,30,50,80,100,120];
+
+function mask(n){return n.slice(0,2)+"***";}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function now(){return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});}
+
+function showToast(){
+  container.innerHTML="";
+  const t=document.createElement("div");
+  t.className="toast";
+  t.innerHTML=`
+    <div class="coinBadge"></div>
+    <div>
+      <div class="toastTitleRow">
+        <p class="toastTitle">${mask(pick(names))} claimed ${pick(amounts)} credits <span class="tagLive">LIVE</span></p>
+        <p class="toastTime">${now()}</p>
+      </div>
+      <p class="toastSub">Sign up support completed successfully</p>
+    </div>`;
+  container.appendChild(t);
+  setTimeout(()=>{container.innerHTML="";},3000);
+}
+setTimeout(showToast,900);
+setInterval(showToast,4200);
 </script>
 
 </body>
