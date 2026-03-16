@@ -70,8 +70,21 @@ font-size:clamp(42px,6vw,72px);
 line-height:1;
 font-weight:900;
 margin-bottom:18px;
+}
+
+.headline .row{
 display:flex;
-flex-direction:column;
+justify-content:space-between;
+align-items:baseline;
+width:100%;
+}
+
+.get{
+letter-spacing:2px;
+}
+
+.big{
+font-size:clamp(56px,8vw,96px);
 }
 
 .line{
@@ -159,9 +172,14 @@ margin-top:16px;
 
 <div class="brand">Rock9 Casino Bonus</div>
 
-<h1>
-<span class="line">Top Up <span class="gold">$100</span></span>
-<span class="line">Get <span class="gold">$250</span></span>
+<h1 class="headline">
+<div class="row">
+<span>Top Up <span class="gold">$100</span></span>
+</div>
+<div class="row">
+<span class="get">Get</span>
+<span class="gold big">$250</span>
+</div>
 </h1>
 
 
