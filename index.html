@@ -1,344 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rock9 | Claim Bonus</title>
-  <meta name="description" content="Top up $100 and get $250. Redirecting to WhatsApp in 5 seconds." />
-  <style>
-    :root {
-      --bg: #0f0a08;
-      --panel: #17110e;
-      --panel-2: #1d1512;
-      --line: rgba(255,255,255,0.08);
-      --text: #f7f1e8;
-      --muted: rgba(247, 241, 232, 0.7);
-      --gold: #f3bf53;
-      --gold-soft: #ffd98a;
-      --red: #b91d14;
-      --radius: 24px;
-      --shadow: 0 20px 50px rgba(0,0,0,0.35);
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rock9 | Claim Bonus</title>
+<style>
+:root{
+--bg:#0e0907;
+--panel:#16110e;
+--line:rgba(255,255,255,0.08);
+--text:#f6efe6;
+--muted:rgba(246,239,230,0.7);
+--gold:#f3bf53;
+--red:#b91d14;
+--radius:28px;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    html, body {
-      min-height: 100%;
-    }
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(180deg,#0a0604,#120c09);
+color:var(--text);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(243,191,83,0.08), transparent 30%),
-        linear-gradient(180deg, #0b0705 0%, #120c09 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+.wrap{width:min(980px,100%)}
 
-    .wrap {
-      width: min(980px, 100%);
-    }
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:32px;
+overflow:hidden;
+}
 
-    .card {
-      background: rgba(23, 17, 14, 0.92);
-      border: 1px solid var(--line);
-      border-radius: 32px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 640px;
-    }
+.poster img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
 
-    .poster {
-      background: #0a0604;
-      position: relative;
-    }
+.content{
+padding:48px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
 
-    .poster img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+.brand{
+font-size:13px;
+letter-spacing:1px;
+color:var(--gold);
+text-transform:uppercase;
+margin-bottom:18px;
+}
 
-    .content {
-      padding: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    }
+h1{
+font-size:clamp(42px,6vw,72px);
+line-height:0.95;
+font-weight:900;
+margin-bottom:18px;
+}
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: var(--gold-soft);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      margin-bottom: 22px;
-      width: fit-content;
-      text-transform: uppercase;
-    }
+.gold{color:var(--gold)}
 
-    h1 {
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 0.95;
-      letter-spacing: -1.8px;
-      margin-bottom: 18px;
-      font-weight: 900;
-    }
+.desc{
+font-size:17px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:28px;
+max-width:420px;
+}
 
-    .gold {
-      color: var(--gold);
-    }
+.offer{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:28px;
+}
 
-    .desc {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 460px;
-      margin-bottom: 28px;
-    }
+.offer-box{
+padding:18px;
+border:1px solid var(--line);
+border-radius:18px;
+background:#1c1512;
+}
 
-    .offer {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 28px;
-    }
+.label{
+font-size:12px;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:6px;
+}
 
-    .offer-box {
-      padding: 18px;
-      background: var(--panel-2);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-    }
+.value{
+font-size:34px;
+font-weight:900;
+color:var(--gold);
+}
 
-    .label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:16px 24px;
+border-radius:999px;
+text-decoration:none;
+font-weight:800;
+font-size:15px;
+background:linear-gradient(180deg,#d73725,#a5160f);
+color:#fff;
+}
 
-    .value {
-      font-size: clamp(28px, 4vw, 38px);
-      font-weight: 900;
-      color: var(--gold);
-      line-height: 1;
-    }
+.note{
+font-size:13px;
+color:rgba(255,255,255,0.5);
+margin-top:16px;
+}
 
-    .timer-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 16px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-      margin-bottom: 18px;
-    }
-
-    .timer-text {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .count {
-      min-width: 60px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--gold);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .btn {
-      appearance: none;
-      border: none;
-      text-decoration: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 22px;
-      border-radius: 999px;
-      font-size: 15px;
-      font-weight: 800;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(180deg, #d73725 0%, #a5160f 100%);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(185,29,20,0.22);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .note {
-      font-size: 13px;
-      color: rgba(247, 241, 232, 0.55);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 860px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .poster {
-        max-height: 420px;
-      }
-
-      .content {
-        padding: 30px 22px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      body {
-        padding: 14px;
-      }
-
-      .card {
-        border-radius: 24px;
-      }
-
-      .offer {
-        grid-template-columns: 1fr;
-      }
-
-      .actions .btn {
-        width: 100%;
-      }
-
-      .timer-box {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-  </style>
+@media(max-width:860px){
+.grid{grid-template-columns:1fr}
+.poster{max-height:420px}
+.content{padding:30px 22px}
+.offer{grid-template-columns:1fr}
+.btn{width:100%}
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="card">
-      <div class="grid">
-        <div class="poster">
-          <img src="1002509001.png" alt="Rock9 Mega Casino Bonus Poster" />
-        </div>
 
-        <div class="content">
-          <div class="brand">Rock9 Bonus</div>
+<div class="wrap">
 
-          <h1>
-            Top Up <span class="gold">$100</span><br />
-            Get <span class="gold">$250</span>
-          </h1>
+<div class="card">
+<div class="grid">
 
-          <p class="desc">
-            Limited casino bonus offer. You will be redirected to WhatsApp automatically in 5 seconds to claim now.
-          </p>
+<div class="poster">
+<img src="1002509001.png" alt="Rock9 Bonus" />
+</div>
 
-          <div class="offer">
-            <div class="offer-box">
-              <div class="label">Top Up</div>
-              <div class="value">$100</div>
-            </div>
-            <div class="offer-box">
-              <div class="label">Get Bonus</div>
-              <div class="value">$250</div>
-            </div>
-          </div>
+<div class="content">
 
-          <div class="timer-box">
-            <div class="timer-text">
-              Auto redirecting to WhatsApp to claim your bonus.
-            </div>
-            <div class="count" id="countdown">5</div>
-          </div>
+<div class="brand">Rock9 Casino Bonus</div>
 
-          <div class="actions">
-            <a class="btn btn-primary" id="claimBtn" href="https://wa.me/60123456789?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24100%20to%20%24250%20bonus." target="_blank">Claim via WhatsApp</a>
-            <button class="btn btn-secondary" id="stayBtn" type="button">Stay on Page</button>
-          </div>
+<h1>
+Top Up <span class="gold">$100</span><br>
+Get <span class="gold">$250</span>
+</h1>
 
-          <p class="note">
-            Change the WhatsApp number and prefilled message in the link before publishing.
-          </p>
-        </div>
-      </div>
-    </section>
-  </div>
+<p class="desc">
+Claim the Rock9 limited casino bonus. Deposit $100 and receive $250 in promotional credits.
+</p>
 
-  <script>
-    const whatsappUrl = "https://wa.me/60123456789?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24100%20to%20%24250%20bonus.";
-    const countdownEl = document.getElementById('countdown');
-    const stayBtn = document.getElementById('stayBtn');
-    const claimBtn = document.getElementById('claimBtn');
+<div class="offer">
+<div class="offer-box">
+<div class="label">Top Up</div>
+<div class="value">$100</div>
+</div>
 
-    claimBtn.href = whatsappUrl;
+<div class="offer-box">
+<div class="label">Get Bonus</div>
+<div class="value">$250</div>
+</div>
+</div>
 
-    let seconds = 5;
-    let cancelled = false;
+<a class="btn" href="https://wa.me/60123456789?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24100%20to%20%24250%20bonus." target="_blank">
+Claim via WhatsApp
+</a>
 
-    const timer = setInterval(() => {
-      seconds -= 1;
-      countdownEl.textContent = seconds;
+<p class="note">
+Edit the WhatsApp number in the link before publishing.
+</p>
 
-      if (seconds <= 0) {
-        clearInterval(timer);
-        if (!cancelled) {
-          window.location.href = whatsappUrl;
-        }
-      }
-    }, 1000);
+</div>
+</div>
+</div>
 
-    stayBtn.addEventListener('click', () => {
-      cancelled = true;
-      clearInterval(timer);
-      countdownEl.textContent = '—';
-      stayBtn.textContent = 'Redirect Cancelled';
-      stayBtn.disabled = true;
-      stayBtn.style.opacity = '0.6';
-      stayBtn.style.cursor = 'default';
-    });
-  </script>
+</div>
+
 </body>
 </html>
