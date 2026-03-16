@@ -27,9 +27,77 @@ display:flex;
 align-items:center;
 justify-content:center;
 padding:24px;
+overflow:hidden;
+position:relative;
 }
 
-.wrap{width:min(980px,100%)}
+.coin-rain{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+z-index:0;
+}
+
+.coin{
+position:absolute;
+top:-120px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:radial-gradient(circle at 30% 30%, #ffe7a3 0%, #f3bf53 45%, #c98512 100%);
+box-shadow:0 0 12px rgba(243,191,83,0.45);
+animation:fall linear infinite;
+opacity:0.9;
+}
+
+.coin::after{
+content:"";
+position:absolute;
+inset:4px;
+border-radius:50%;
+border:1px solid rgba(255,255,255,0.35);
+}
+
+@keyframes fall{
+0%{transform:translateY(-120px) rotate(0deg);opacity:0}
+10%{opacity:0.95}
+100%{transform:translateY(120vh) rotate(360deg);opacity:0.2}
+}
+
+.top-popup{
+position:fixed;
+top:18px;
+left:50%;
+transform:translateX(-50%);
+z-index:5;
+background:rgba(18,12,9,0.96);
+border:1px solid rgba(243,191,83,0.25);
+color:var(--text);
+padding:12px 18px;
+border-radius:999px;
+box-shadow:0 10px 28px rgba(0,0,0,0.35);
+font-size:14px;
+font-weight:700;
+letter-spacing:0.2px;
+backdrop-filter:blur(8px);
+}
+
+.top-popup .gold{
+font-weight:900;
+}
+
+.top-popup .close-popup{
+background:none;
+border:none;
+color:rgba(255,255,255,0.7);
+font-size:18px;
+margin-left:10px;
+cursor:pointer;
+line-height:1;
+}
+
+.wrap{width:min(980px,100%);position:relative;z-index:1}
 
 .card{
 background:var(--panel);
@@ -182,6 +250,25 @@ margin-top:16px;
 </style>
 </head>
 <body>
+<div class="coin-rain" aria-hidden="true">
+  <span class="coin" style="left:4%;animation-duration:8s;animation-delay:0s"></span>
+  <span class="coin" style="left:10%;animation-duration:10s;animation-delay:1s;width:18px;height:18px"></span>
+  <span class="coin" style="left:18%;animation-duration:7.5s;animation-delay:2s"></span>
+  <span class="coin" style="left:26%;animation-duration:9s;animation-delay:0.5s;width:26px;height:26px"></span>
+  <span class="coin" style="left:34%;animation-duration:11s;animation-delay:1.8s"></span>
+  <span class="coin" style="left:42%;animation-duration:8.5s;animation-delay:2.5s;width:20px;height:20px"></span>
+  <span class="coin" style="left:50%;animation-duration:9.5s;animation-delay:0.8s"></span>
+  <span class="coin" style="left:58%;animation-duration:7.8s;animation-delay:2.2s;width:24px;height:24px"></span>
+  <span class="coin" style="left:66%;animation-duration:10.5s;animation-delay:1.3s"></span>
+  <span class="coin" style="left:74%;animation-duration:8.8s;animation-delay:0.2s;width:19px;height:19px"></span>
+  <span class="coin" style="left:82%;animation-duration:9.8s;animation-delay:1.5s"></span>
+  <span class="coin" style="left:90%;animation-duration:7.2s;animation-delay:2.8s;width:25px;height:25px"></span>
+</div>
+
+<div class="top-popup" id="topPopup">
+  <span id="popupText">Jason just topped up <span class="gold">$100</span> and claimed <span class="gold">$250</span></span>
+  <button class="close-popup" id="closePopup" aria-label="Close">×</button>
+</div>
 
 <div class="wrap">
 
@@ -223,6 +310,33 @@ document.getElementById('claimBtn').href = whatsappUrl;
 setTimeout(function(){
   window.location.href = whatsappUrl;
 }, 5000);
+
+const popup = document.getElementById('topPopup');
+const closePopup = document.getElementById('closePopup');
+const popupText = document.getElementById('popupText');
+
+const names = [
+  'Jason', 'Daniel', 'Ryan', 'Kevin', 'Marcus', 'Brandon', 'Ethan', 'Chris',
+  'Alex', 'Justin', 'Nathan', 'Dylan', 'Aaron', 'Sean', 'Adrian', 'Leon',
+  'Adam', 'Joshua', 'Samuel', 'Jayden'
+];
+
+function randomName() {
+  return names[Math.floor(Math.random() * names.length)];
+}
+
+function updatePopup() {
+  popupText.innerHTML = `${randomName()} just topped up <span class="gold">$100</span> and claimed <span class="gold">$250</span>`;
+}
+
+updatePopup();
+setInterval(updatePopup, 3200);
+
+if (closePopup) {
+  closePopup.addEventListener('click', function(){
+    popup.style.display = 'none';
+  });
+}
 </script>
 
 </body>
