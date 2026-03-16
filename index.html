@@ -72,9 +72,24 @@ font-weight:900;
 margin-bottom:18px;
 }
 
+.headline{
+display:inline-block;
+}
+
 .headline .row{
-display:block;
-line-height:1;
+display:flex;
+white-space:nowrap;
+}
+
+.headline .top{
+justify-content:flex-start;
+}
+
+.headline .bottom{
+justify-content:space-between;
+width:100%;
+font-size:1.25em;
+font-weight:900;
 }
 
 .headline .bottom{
