@@ -67,9 +67,16 @@ margin-bottom:18px;
 
 h1{
 font-size:clamp(42px,6vw,72px);
-line-height:0.95;
+line-height:1;
 font-weight:900;
 margin-bottom:18px;
+display:flex;
+flex-direction:column;
+}
+
+.line{
+display:block;
+width:100%;
 }
 
 .gold{color:var(--gold)}
@@ -153,8 +160,8 @@ margin-top:16px;
 <div class="brand">Rock9 Casino Bonus</div>
 
 <h1>
-Top Up <span class="gold">$100</span><br>
-Get <span class="gold">$250</span>
+<span class="line">Top Up <span class="gold">$100</span></span>
+<span class="line">Get <span class="gold">$250</span></span>
 </h1>
 
 
