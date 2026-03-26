@@ -280,7 +280,7 @@ h1{
       <span class="notification-app">rock-9.com</span>
       <span class="notification-time">now</span>
     </div>
-    <div class="notification-message" id="popupText">Jason just topped up <span class="gold">$100</span> and claimed <span class="gold">$150</span></div>
+    <div class="notification-message" id="popupText">Jason just claimed <span class="gold">$5</span></div>
   </div>
   <button class="close-popup" id="closePopup" aria-label="Close">×</button>
 </div>
@@ -289,18 +289,18 @@ h1{
   <div class="card">
     <div class="grid">
       <div class="poster">
-        <img src="1002509003.png" alt="Rock9 Bonus" />
+        <img src="20262703001.png" alt="Rock9 Bonus" />
       </div>
 
       <div class="content">
         <div class="brand">ROCK-9.COM Casino Bonus</div>
 
         <h1 class="headline">
-          <div class="row top"><strong>Top Up <span class="gold">$100</span></strong></div>
-          <div class="row bottom"><strong>Get <span class="gold big">$150</span></strong></div>
+          <div class="row top"><strong>Sign Up</span></strong></div>
+          <div class="row bottom"><strong>& Get <span class="gold big">$5</span></strong></div>
         </h1>
 
-        <a class="btn" href="https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24150%20bonus." target="_blank" id="claimBtn">
+        <a class="btn" href="https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24$5%20bonus." target="_blank" id="claimBtn">
           Claim Now
         </a>
 
@@ -311,7 +311,7 @@ h1{
 </div>
 
 <script>
-const whatsappUrl = "https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24150%20bonus.";
+const whatsappUrl = "https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%24$5%20bonus.";
 document.getElementById('claimBtn').href = whatsappUrl;
 
 setTimeout(function(){
@@ -333,7 +333,7 @@ function randomName() {
 }
 
 function updatePopup() {
-  popupText.innerHTML = `${randomName()} just topped up <span class="gold">$100</span> and claimed <span class="gold">$250</span>`;
+  popupText.innerHTML = `${randomName()} just claimed <span class="gold">$5</span>`;
 }
 
 updatePopup();
