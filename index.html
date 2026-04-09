@@ -105,6 +105,21 @@ body{
   animation:slideDown 0.45s ease;
 }
 
+.top-popup .gold{
+  font-weight:900;
+}
+
+.top-popup .close-popup{
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.48);
+  font-size:15px;
+  margin-left:2px;
+  cursor:pointer;
+  line-height:1;
+  padding:0;
+}
+
 .notification-icon{
   width:28px;
   height:28px;
@@ -117,9 +132,11 @@ body{
   font-weight:900;
   color:#fff;
   flex:0 0 28px;
+  box-shadow:0 6px 14px rgba(215,55,37,0.24);
 }
 
 .notification-body{
+  min-width:0;
   flex:1;
 }
 
@@ -127,20 +144,30 @@ body{
   display:flex;
   align-items:center;
   gap:6px;
+  margin-bottom:2px;
 }
 
 .notification-app{
   font-size:12px;
   font-weight:700;
+  color:rgba(255,255,255,0.92);
 }
 
 .notification-time{
   font-size:11px;
+  color:rgba(255,255,255,0.5);
   margin-left:auto;
 }
 
 .notification-message{
   font-size:12px;
+  line-height:1.35;
+  color:rgba(255,255,255,0.86);
+}
+
+@keyframes slideDown{
+  0%{opacity:0;transform:translateX(-50%) translateY(-14px)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0)}
 }
 
 .wrap{
@@ -191,38 +218,64 @@ h1{
   text-align:center;
 }
 
+.headline{
+  display:block;
+}
+
+.headline strong{
+  font-weight:900;
+}
+
 .headline .row{
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:0.35em;
+  white-space:nowrap;
   margin:6px 0;
-  text-align:center;
+}
+
+.headline .bottom{
+  font-size:1.25em;
 }
 
 .gold{
   color:var(--gold);
-  text-shadow:0 0 10px rgba(243,191,83,0.6);
+}
+
+.big{
+  font-size:inherit;
 }
 
 .btn{
   display:inline-flex;
+  align-items:center;
   justify-content:center;
   padding:16px 24px;
   border-radius:999px;
+  text-decoration:none;
   font-weight:800;
+  font-size:15px;
   background:linear-gradient(180deg,#d73725,#a5160f);
   color:#fff;
-  text-decoration:none;
 }
 
 .note{
+  font-size:13px;
+  color:rgba(255,255,255,0.5);
   margin-top:16px;
   text-align:center;
-  font-size:13px;
+  width:100%;
 }
 
-/* ✅ MOBILE FIX */
 @media(max-width:860px){
-
   body{
     padding:12px;
+  }
+
+  .top-popup{
+    top:10px;
+    width:min(320px, calc(100% - 20px));
   }
 
   .wrap{
@@ -237,47 +290,99 @@ h1{
     grid-template-columns:1fr;
   }
 
+  .poster{
+    max-height:none;
+  }
+
   .poster img{
     width:100%;
     height:auto;
     object-fit:contain;
+    display:block;
   }
 
   .content{
     padding:24px 20px 26px;
   }
 
+  .brand{
+    font-size:12px;
+    letter-spacing:0.8px;
+    margin-bottom:14px;
+    text-align:center;
+  }
+
   h1{
     font-size:clamp(28px, 10vw, 48px);
+    line-height:1.08;
+    margin-bottom:18px;
   }
 
   .headline .row{
+    white-space:normal;
     margin:4px 0;
+  }
+
+  .headline .bottom{
+    font-size:1em;
   }
 
   .btn{
     width:100%;
+    padding:15px 20px;
+    font-size:16px;
+  }
+
+  .note{
+    margin-top:14px;
+    font-size:12px;
   }
 }
 </style>
 </head>
-
 <body>
+<div class="coin-rain" aria-hidden="true">
+  <span class="coin" style="left:4%;animation-duration:8s;animation-delay:0s"></span>
+  <span class="coin" style="left:10%;animation-duration:10s;animation-delay:1s;width:18px;height:18px"></span>
+  <span class="coin" style="left:18%;animation-duration:7.5s;animation-delay:2s"></span>
+  <span class="coin" style="left:26%;animation-duration:9s;animation-delay:0.5s;width:26px;height:26px"></span>
+  <span class="coin" style="left:34%;animation-duration:11s;animation-delay:1.8s"></span>
+  <span class="coin" style="left:42%;animation-duration:8.5s;animation-delay:2.5s;width:20px;height:20px"></span>
+  <span class="coin" style="left:50%;animation-duration:9.5s;animation-delay:0.8s"></span>
+  <span class="coin" style="left:58%;animation-duration:7.8s;animation-delay:2.2s;width:24px;height:24px"></span>
+  <span class="coin" style="left:66%;animation-duration:10.5s;animation-delay:1.3s"></span>
+  <span class="coin" style="left:74%;animation-duration:8.8s;animation-delay:0.2s;width:19px;height:19px"></span>
+  <span class="coin" style="left:82%;animation-duration:9.8s;animation-delay:1.5s"></span>
+  <span class="coin" style="left:90%;animation-duration:7.2s;animation-delay:2.8s;width:25px;height:25px"></span>
+</div>
+
+<div class="top-popup" id="topPopup">
+  <div class="notification-icon">R9</div>
+  <div class="notification-body">
+    <div class="notification-head">
+      <span class="notification-app">rock-9.com</span>
+      <span class="notification-time">now</span>
+    </div>
+    <div class="notification-message" id="popupText">Jason just claimed <span class="gold">$30</span></div>
+  </div>
+  <button class="close-popup" id="closePopup" aria-label="Close">×</button>
+</div>
 
 <div class="wrap">
   <div class="card">
     <div class="grid">
-
       <div class="poster">
-        <img src="20260904001.png" />
+        <img src="20260904002.png" alt="Rock9 Bonus" />
       </div>
 
       <div class="content">
         <div class="brand">ROCK-9.COM Casino Bonus</div>
 
         <h1 class="headline">
-          <div class="row top"><strong>Sign Up Now</strong></div>
-          <div class="row bottom"><strong>Get <span class="gold big">$30</span></strong></div>
+          <div class="row top"><strong>Sign Up & Get</strong></div>
+          <div class="row bottom">
+  <strong><span class="gold">$30</span> Bonus</strong>
+</div>
         </h1>
 
         <a class="btn" href="https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%2430%20bonus.%20How%20do%20I%20start%3F" target="_blank" id="claimBtn">
@@ -286,10 +391,48 @@ h1{
 
         <p class="note">ROCK-9.COM Official</p>
       </div>
-
     </div>
   </div>
 </div>
+
+<script>
+const whatsappUrl = "https://wa.me/61434844364?text=Hi%20Rock9%2C%20I%20want%20to%20claim%20the%20%2430%20bonus.%20How%20do%20I%20start%3F";
+document.getElementById('claimBtn').href = whatsappUrl;
+
+const popup = document.getElementById('topPopup');
+const closePopup = document.getElementById('closePopup');
+const popupText = document.getElementById('popupText');
+
+const names = [
+  'Jason', 'Daniel', 'Ryan', 'Jessica', 'Marcus', 'Yoyo', 'Ethan', 'Chris',
+  'Alex', 'Justin', 'Nathan', 'Tiffany', 'Aaron', 'Mia', 'Adrian', 'Leon',
+  'Adam', 'Joshua', 'Samuel', 'Jayden', 'Sandra', 'Kathy', 'Samantha', 'Shyann'
+];
+
+function randomName() {
+  return names[Math.floor(Math.random() * names.length)];
+}
+
+function updatePopup() {
+  popupText.innerHTML = `${randomName()} just claimed <span class="gold">$30</span>`;
+}
+
+updatePopup();
+setInterval(updatePopup, 3200);
+
+if (closePopup) {
+  closePopup.addEventListener('click', function(){
+    popup.style.display = 'none';
+  });
+}
+</script>
+
+<!-- WhatsApp Tracking -->
+<script>
+document.getElementById('claimBtn').addEventListener('click', function() {
+  fbq('track', 'Lead', { site: 'site1' });
+});
+</script>
 
 </body>
 </html>
